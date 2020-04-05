@@ -5,6 +5,7 @@ package main
 import (
 	"encoding/json"
 	"net/http"
+	"fmt"
 
 	"github.com/gorilla/mux"
 )
@@ -21,6 +22,8 @@ type Response struct {
 func (a *App) Init() {
 	a.Router = mux.NewRouter()
 
+	a.Router.Use(loggingMiddleware)
+
 	a.initializeRoutes()
 }
 
@@ -29,7 +32,7 @@ func (a *App) Run() {
 
 	address := fmt.Sprintf(":%d", port)
 
-	fmt.Printf("Serving on %v\n", address)
+	logInfo("Serving on %v\n", address)
 
 	http.ListenAndServe(address, a.Router)
 }
