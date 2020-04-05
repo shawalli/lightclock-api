@@ -17,7 +17,7 @@ func (a *App) createEvent(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 
 	if evt.Label == "" {
-        respondError(w, http.StatusBadRequest, "Missing required fields.")
+        respondError(w, http.StatusBadRequest, "Missing required fields")
         return
 	}
 
