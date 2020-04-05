@@ -19,6 +19,18 @@ type Response struct {
 	Result	interface{}	`json:"result"`
 }
 
+var handle404 http.Handler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	logRequest(r)
+	logError("No resource '%s'", r.URL.Path)
+	respondError(w, http.StatusNotFound, http.StatusText(http.StatusNotFound))
+})
+
+var handle405 http.Handler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	logRequest(r)
+	logError("Invalid resource method '%s' for '%s'", r.Method, r.URL.Path)
+	respondError(w, http.StatusNotFound, http.StatusText(http.StatusNotFound))
+})
+
 func (a *App) Init() {
 	a.Router = mux.NewRouter()
 
