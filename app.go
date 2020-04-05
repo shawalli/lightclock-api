@@ -24,7 +24,15 @@ func (a *App) Init() {
 	a.initializeRoutes()
 }
 
-func (a *App) Run() { }
+func (a *App) Run() {
+	port := 8080
+
+	address := fmt.Sprintf(":%d", port)
+
+	fmt.Printf("Serving on %v\n", address)
+
+	http.ListenAndServe(address, a.Router)
+}
 
 func respondError(w http.ResponseWriter, code int, message string) {
 	respondJSONFull(w, code, nil, message)
@@ -48,5 +56,6 @@ func respondJSONFull(w http.ResponseWriter, code int, payload interface{}, messa
 }
 
 func (a *App) initializeRoutes() {
+	a.Router.HandleFunc("/", a.GetIndex).Methods("GET")
 	a.Router.HandleFunc("/event", a.createEvent).Methods("POST")
 }

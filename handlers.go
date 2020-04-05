@@ -7,6 +7,12 @@ import (
 	"net/http"
 )
 
+func (a *App) GetIndex(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html")
+	w.WriteHeader(200)
+	w.Write([]byte("This is the lightclock API"))
+}
+
 func (a *App) createEvent(w http.ResponseWriter, r *http.Request) {
 	var evt event
 	decoder := json.NewDecoder(r.Body)
