@@ -19,7 +19,7 @@ func executeRequest(req *http.Request) *httptest.ResponseRecorder {
 	return rr
 }
 
-func TestEventGet(t *testing.T) {
+func TestEventPost(t *testing.T) {
 	var requestBody = []byte(`{"label":"morning"}`)
 	
 	req, _ := http.NewRequest("POST", "/event", bytes.NewBuffer(requestBody))
@@ -31,7 +31,13 @@ func TestEventGet(t *testing.T) {
 	var respBody map[string]interface{}
 	json.Unmarshal(resp.Body.Bytes(), &respBody)
 
-	assert.Equal(t, "morning", respBody["label"])
+	assert.Empty(t, respBody["error"])
 
-	assert.NotNil(t, respBody["id"])
+	assert.NotNil(t, respBody["result"])
+
+	result := respBody["result"].(map[string]interface{})
+
+	assert.Equal(t, "morning", result["label"])
+
+	assert.NotNil(t, result["id"])
 }
