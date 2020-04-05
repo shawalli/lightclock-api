@@ -2,13 +2,17 @@
 
 package main
 
+import (
+	"github.com/google/uuid"
+)
+
 type event struct {
-	ID 		int		`json:"id"`
-	Label 	string 	`json:"label"`
+	ID		uuid.UUID	`json:"id"`
+	Label	string		`json:"label"`
 }
 
 func (evt *event) createEvent() error {
-	evt.ID = 1
+	evt.ID, _ = uuid.NewUUID()
 
 	return nil
 }
