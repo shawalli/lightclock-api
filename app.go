@@ -34,6 +34,9 @@ var handle405 http.Handler = http.HandlerFunc(func(w http.ResponseWriter, r *htt
 func (a *App) Init() {
 	a.Router = mux.NewRouter()
 
+	a.Router.NotFoundHandler = handle404
+	a.Router.MethodNotAllowedHandler = handle405
+
 	a.Router.Use(loggingMiddleware)
 
 	a.initializeRoutes()
