@@ -33,9 +33,9 @@ func TestInvalidPath(t *testing.T) {
 }
 
 func TestInvalidMethod(t *testing.T) {
-	a.Router.HandleFunc("/", a.GetIndex).Methods("POST")
+	a.Router.HandleFunc("/", a.GetHealthCheck).Methods("GET")
 
-	req, _ := http.NewRequest("PUT", "/", nil)
+	req, _ := http.NewRequest("POST", "/", nil)
 
 	resp := executeRequest(req)
 	assert.Equal(t, http.StatusNotFound, resp.Code)

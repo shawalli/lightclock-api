@@ -11,6 +11,16 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestHealthCheck(t *testing.T) {
+	req, _ := http.NewRequest("GET", "/healthcheck", nil)
+	req.Header.Set("Content-Type", "application/json")
+
+	resp := executeRequest(req)
+	assert.Equal(t, http.StatusOK, resp.Code)
+
+	assert.Equal(t, http.StatusText(http.StatusOK), string(resp.Body.Bytes()))
+}
+
 func TestEventPost(t *testing.T) {
 	var requestBody = []byte(`{"label":"morning"}`)
 	

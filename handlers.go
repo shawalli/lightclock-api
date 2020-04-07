@@ -7,10 +7,10 @@ import (
 	"net/http"
 )
 
-func (a *App) GetIndex(w http.ResponseWriter, r *http.Request) {
+func (a *App) GetHealthCheck(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	w.WriteHeader(200)
-	w.Write([]byte("This is the lightclock API"))
+	w.Write([]byte(http.StatusText(http.StatusOK)))
 }
 
 func (a *App) createEvent(w http.ResponseWriter, r *http.Request) {

@@ -74,6 +74,6 @@ func respondJSONFull(w http.ResponseWriter, code int, payload interface{}, messa
 }
 
 func (a *App) initializeRoutes() {
-	a.Router.HandleFunc("/", a.GetIndex).Methods("GET")
+	a.Router.HandleFunc("/healthcheck", a.GetHealthCheck).Methods("GET")
 	a.Router.HandleFunc("/event", a.createEvent).Methods("POST")
 }
